@@ -18,6 +18,7 @@ return new class extends Migration
     $table->string('no_telepon')->nullable();
     $table->text('keperluan');
     $table->timestamp('waktu_datang')->useCurrent();
+    $table->string('foto_wajah')->nullable();
     $table->timestamps();
 });
 
