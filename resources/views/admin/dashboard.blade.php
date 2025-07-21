@@ -1,8 +1,72 @@
 @extends('admin.layout')
 
 @section('content')
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+            <h2>Daftar Tamu</h2>
+        </div>
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Nama</th>
+                                <th>Instansi</th>
+                                <th>No. Telepon</th>
+                                <th>Keperluan</th>
+                                <th>Foto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($tamus as $tamu)
+                                <tr>
+                                    <td>{{ $tamu->waktu_datang->format('d M Y H:i') }}</td>
+                                    <td>{{ $tamu->nama }}</td>
+                                    <td>{{ $tamu->instansi }}</td>
+                                    <td>{{ $tamu->no_telepon ?? '-' }}</td>
+                                    <td>{{ $tamu->keperluan }}</td>
+                                    <td>
+                                        @if($tamu->foto_wajah)
+                                            <img src="{{ asset('storage/' . $tamu->foto_wajah) }}" 
+                                                alt="Foto {{ $tamu->nama }}" 
+                                                class="img-thumbnail" 
+                                                style="height: 50px; width: 50px; object-fit: cover;"
+                                                onclick="window.open(this.src)">
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">
+                                        <div class="text-muted">
+                                            <i class="fas fa-inbox fa-3x mb-3"></i>
+                                            <p class="mb-0">Belum ada tamu yang tercatat</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('content')
     <div class="dashboard-container">
-        <h2 class="dashboard-title">📥 Laporan Masuk</h2>
+        <h2 class="dashboard-title">� Daftar Tamu</h2>
 
         @if(session('success'))
             <div class="success-message">
@@ -10,73 +74,41 @@
             </div>
         @endif
 
-        <div class="reports-container">
-            @forelse($reports as $report)
-                <div class="report-card">
-                    <div class="report-content">
+        <div class="tamu-container">
+            @forelse($tamus as $tamu)
+                <div class="tamu-card">
+                    <div class="tamu-content">
                         {{-- Header --}}
-                        <div class="report-header">
-                            <div class="report-info">
+                        <div class="tamu-header">
+                            <div class="tamu-info">
                                 <div>
-                                    <span class="report-date">{{ $report->created_at->format('d M Y • H:i') }} • {{ $report->getReporterType() }}</span>
-                                    <h3 class="report-title">{{ $report->judul }}</h3>
-
-                                    {{-- Status Badge --}}
-                                    <span class="status-badge {{ $report->status }}">
-                                        @if($report->status == 'pending')
-                                            ⏳ Pending
-                                        @elseif($report->status == 'proses')
-                                            🔄 Dalam Proses
-                                        @else
-                                            ✅ Selesai
-                                        @endif
-                                    </span>
+                                    <span class="tamu-date">{{ $tamu->waktu_datang->format('d M Y • H:i') }}</span>
+                                    <h3 class="tamu-name">{{ $tamu->nama }}</h3>
+                                    <p class="tamu-institution">{{ $tamu->instansi }}</p>
                                 </div>
-                            </div>
-
-                            {{-- Actions --}}
-                            <div class="report-actions">
-                                {{-- Status Form --}}
-                                <form action="{{ route('admin.reports.update', $report->id) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <select name="status"
-                                            onchange="this.form.submit()"
-                                            class="form-select form-select-sm">
-                                        <option value="pending" {{ $report->status == 'pending' ? 'selected' : '' }}>Ubah ke: Pending</option>
-                                        <option value="proses" {{ $report->status == 'proses' ? 'selected' : '' }}>Ubah ke: Proses</option>
-                                        <option value="selesai" {{ $report->status == 'selesai' ? 'selected' : '' }}>Ubah ke: Selesai</option>
-                                    </select>
-                                </form>
                             </div>
                         </div>
 
-                        {{-- Guru Handling Info --}}
-                        @if($report->handled_by_guru_id)
-                            <div class="handling-info">
-                                <div class="handling-info-title">Informasi Penanganan</div>
-                                <div class="handling-info-content">
-                                    👨‍🏫 Ditangani oleh: {{ $report->handlingGuru->username ?? 'Unknown' }}
-                                </div>
-                                <div class="handling-info-content mt-1">
-                                    📅 Status: {{ ucfirst($report->status) }}
-                                </div>
+                        {{-- Informasi Tamu --}}
+                        <div class="tamu-details">
+                            <div class="detail-item">
+                                <span class="detail-label">📞 No. Telepon:</span>
+                                <span class="detail-value">{{ $tamu->no_telepon ?? '-' }}</span>
                             </div>
-                        @endif
-
-                        {{-- Isi Laporan --}}
-                        <div class="report-body">
-                            <p>{{ $report->isi_laporan }}</p>
+                            <div class="detail-item">
+                                <span class="detail-label">� Keperluan:</span>
+                                <p class="detail-value">{{ $tamu->keperluan }}</p>
+                            </div>
                         </div>
 
-                        {{-- Bukti Foto --}}
-                        @if($report->image_path)
+                        {{-- Foto Wajah --}}
+                        @if($tamu->foto_wajah)
                             <div class="image-container">
                                 <div class="image-wrapper">
                                     <div class="image-frame">
-                                        <img src="{{ asset('storage/' . $report->image_path) }}"
-                                             alt="Bukti laporan"
-                                             class="report-image"
+                                        <img src="{{ asset('storage/' . $tamu->foto_wajah) }}"
+                                             alt="Foto Tamu"
+                                             class="tamu-image"
                                              onclick="openImageViewer(this.src)"
                                              loading="lazy"
                                              onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23999999\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cline x1=\'18\' y1=\'6\' x2=\'6\' y2=\'18\'%3E%3C/line%3E%3Cline x1=\'6\' y1=\'6\' x2=\'18\' y2=\'18\'%3E%3C/line%3E%3C/svg%3E'; this.classList.add('p-8');">
@@ -144,9 +176,9 @@
                 <div class="empty-state">
                     <svg class="empty-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                              d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
-                    <p class="empty-text">Belum ada laporan yang masuk</p>
+                    <p class="empty-text">Belum ada tamu yang tercatat</p>
                 </div>
             @endforelse
         </div>
