@@ -10,6 +10,13 @@
     <div class="container form-container">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
+                <!-- Logo Section -->
+                <div class="form-logo">
+                    
+                    <h2 class="form-logo-title">Buku Tamu Digital</h2>
+                    <p class="form-logo-subtitle">Pengadilan Tata Usaha Negara Bandung</p>
+                </div>
+
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <div class="d-flex align-items-center">
@@ -24,7 +31,7 @@
                     <div class="card-header">
                         <h5 class="mb-0">Form Buku Tamu</h5>
                     </div>
-                    
+
                     <div class="card-body">
                         <form action="{{ route('tamu.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf

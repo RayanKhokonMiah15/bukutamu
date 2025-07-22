@@ -1,0 +1,201 @@
+    .about-container {
+        padding: 40px 0;
+        background: #1a1a1a;
+        min-height: calc(100vh - 80px);
+        color: #000000;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .about-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+    }
+
+    .about-container > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    .about-header {
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+    }
+
+    .about-title {
+        font-size: 3.5rem;
+        margin-bottom: 25px;
+        font-weight: 700;
+        background: linear-gradient(45deg,#008D00, #00b82e);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .about-content {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .about-content:hover {
+        transform: translateY(-5px);
+    }
+
+    .section {
+        margin-bottom: 40px;
+        position: relative;
+        padding: 20px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.03);
+        transition: all 0.3s ease;
+    }
+
+    .section:hover {
+        background: rgba(255, 255, 255, 0.05);
+        transform: scale(1.01);
+    }
+
+    .section-title {
+        color: #008D00;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    .section-title i {
+        margin-right: 15px;
+        color: #008D00;
+        font-size: 2rem;
+        transition: transform 0.3s ease;
+    }
+
+    .section:hover .section-title i {
+        transform: rotateY(180deg);
+    }
+
+    .section-content {
+        color: #000000;
+        line-height: 2;
+        text-align: justify;
+        font-size: 1.1rem;
+    }
+
+    .key-points {
+        background: rgb(255, 255, 255);
+        border: 1px solid #008D00;
+        padding: 25px;
+        margin: 25px 0;
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .key-points::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom,#008D00, #00b82e);
+    }
+
+    .key-points ul {
+        list-style-type: none;
+        padding-left: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .key-points li {
+        margin: 10px 0;
+        padding: 15px 20px 15px 50px;
+        position: relative;
+        background: rgba(255, 255, 255, 0);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        border: 1px solid #008D00;
+    }
+
+    .key-points li:hover {
+        transform: translateX(5px);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 215, 0, 0.3);
+    }
+
+    .key-points li:before {
+        content: "⚖️";
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.2rem;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+    }
+
+    .key-points li:hover:before {
+        transform: translateY(-50%) rotateZ(360deg);
+        opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .about-title {
+            font-size: 2.5rem;
+        }
+
+        .about-content {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+        }
+
+        .key-points ul {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Animation for sections on scroll */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .section {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .section:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .section:nth-child(3) {
+        animation-delay: 0.4s;
+    }
