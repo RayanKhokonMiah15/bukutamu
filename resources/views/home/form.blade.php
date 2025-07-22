@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.form-layout')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('HomeCss/form.css') }}">
@@ -7,9 +7,9 @@
 @endpush
 
 @section('content')
-    <div class="container form-container">
+    <div class="container-fluid form-container">
         <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-10">
+            <div class="col-xxl-8 col-xl-9 col-lg-10">
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <div class="d-flex align-items-center">

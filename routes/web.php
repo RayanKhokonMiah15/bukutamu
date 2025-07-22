@@ -8,8 +8,8 @@ use App\Http\Middleware\AdminMiddleware; // ⬅️ Tambahkan ini untuk pakai cla
 
 // Welcome page
 Route::get('/', function () {
-    return view('admin.dashboard');
-})->name('admin');
+    return view('home.welcome');
+})->name('home');
 
 // User form routes
 Route::get('/form', [UserController::class, 'form'])->name('user.form');
