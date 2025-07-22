@@ -20,8 +20,7 @@
                     Selamat Datang di Sistem Buku Tamu Digital
                 </h1>
                 <p class="hero-description">
-                    Sistem pencatatan tamu modern untuk melayani dengan lebih baik. 
-                    Komitmen kami untuk transparansi dan efisiensi dalam pelayanan publik.
+                   Tegak di Atas Hukum, Adil bagi Rakyat
                 </p>
                 <div class="button-group">
                     <a href="#" class="primary-button">
