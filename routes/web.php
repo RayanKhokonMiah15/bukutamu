@@ -6,8 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('home/welcome');
-})->name('home');
+    return view('admin.dashboard');
+})->name('admin');
 
 // User form routes
 Route::get('/form', [UserController::class, 'form'])->name('user.form');
