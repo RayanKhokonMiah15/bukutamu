@@ -11,9 +11,14 @@ Route::get('/', function () {
     return view('home.welcome');
 })->name('home');
 
+Route::get('/about', function () { return view('home.about');
+})->name('about');
+
 // User form routes
 Route::get('/form', [UserController::class, 'form'])->name('user.form');
 Route::post('/tamu', [HomeController::class, 'store'])->name('tamu.store');
+
+
 
 // Admin Auth Routes
 Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
