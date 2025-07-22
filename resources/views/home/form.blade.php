@@ -1,4 +1,4 @@
-@extends('layouts.form-layout')
+@extends('layouts.app')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('HomeCss/form.css') }}">
@@ -9,7 +9,7 @@
 @section('content')
     <div class="container-fluid form-container">
         <div class="row justify-content-center">
-            <div class="col-xxl-8 col-xl-9 col-lg-10">
+            <div class="col-lg-8 col-md-10">
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <div class="d-flex align-items-center">
@@ -24,7 +24,7 @@
                     <div class="card-header">
                         <h5 class="mb-0">Form Buku Tamu</h5>
                     </div>
-                    
+
                     <div class="card-body">
                         <form action="{{ route('tamu.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf

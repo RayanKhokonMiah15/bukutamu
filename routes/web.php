@@ -15,6 +15,11 @@ Route::get('/', function () {
 Route::get('/form', [UserController::class, 'form'])->name('user.form');
 Route::post('/tamu', [HomeController::class, 'store'])->name('tamu.store');
 
+// About page
+Route::get('/about', function () {
+    return view('home.about');
+})->name('about.form');
+
 // Admin Auth Routes
 Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
