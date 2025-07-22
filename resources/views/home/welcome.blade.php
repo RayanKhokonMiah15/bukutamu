@@ -17,7 +17,6 @@
                     <span class="nav-title">Pengadilan Tata Usaha Negara Bandung</span>
                 </div>
                 <div class="nav-menu">
-                    <a href="{{ url('/') }}" class="nav-link">Beranda</a>
                     <a href="{{ route('user.form') }}" class="nav-link">Isi Buku Tamu</a>
                     <a href="{{ route('about.form') }}" class="nav-link">Tentang</a>
                     <a href="#" class="nav-link">Kontak</a>
