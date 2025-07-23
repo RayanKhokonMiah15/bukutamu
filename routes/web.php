@@ -11,8 +11,13 @@ Route::get('/', function () {
     return view('home.welcome');
 })->name('home');
 
-Route::get('/about', function () { return view('home.about');
+Route::get('/about', function () { 
+    return view('home.about');
 })->name('about');
+
+Route::get('/kontak', function () {
+    return view('home.kontak');
+})->name('kontak');
 
 // User form routes
 Route::get('/form', [UserController::class, 'form'])->name('user.form');

@@ -14,14 +14,14 @@
         <div class="container">
             <div class="nav-content">
                 <div class="nav-brand">
-                    <i class="fas fa-balance-scale nav-logo"></i>
+                    <img src="{{ asset('ImageHome/logoptun-removebg-preview.png') }}" alt="PTUN Logo" class="nav-logo">
                     <span class="nav-title">Pengadilan Tata Usaha Negara Bandung</span>
                 </div>
                 <div class="nav-menu">
                     <a href="{{ url('/') }}" class="nav-link">Beranda</a>
                     <a href="{{ route('user.form') }}" class="nav-link">Isi Buku Tamu</a>
                     <a href="{{ route('about') }}" class="nav-link">Tentang</a>
-                    <a href="#" class="nav-link">Kontak</a>
+                    <a href="{{ route('kontak') }}" class="nav-link">Kontak</a>
                 </div>
             </div>
         </div>
