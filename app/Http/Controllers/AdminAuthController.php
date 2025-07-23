@@ -38,8 +38,9 @@ class AdminAuthController extends Controller
     {
         Session::forget('is_admin_logged_in');
         Session::forget('admin_id');
+        Session::forget('admin');
 
-        return redirect()->route('admin.login.form')->with('success', 'Berhasil logout.');
+        return redirect()->route('admin.login')->with('success', 'Berhasil logout.');
     }
 
     public function dashboard()

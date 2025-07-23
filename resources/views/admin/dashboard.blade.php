@@ -5,7 +5,17 @@
         <h2 class="mb-4">📋 Daftar Tamu</h2>
 
         @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                {{ session('success') }}
+            </div>
+        @endif
+        
+        @if(session('error'))
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ session('error') }}
+            </div>
         @endif
 
         <div class="card">

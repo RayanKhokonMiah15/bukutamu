@@ -19,6 +19,9 @@ Route::get('/kontak', function () {
     return view('home.kontak');
 })->name('kontak');
 
+// Admin logout route
+Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
 // User form routes
 Route::get('/form', [UserController::class, 'form'])->name('user.form');
 Route::post('/tamu', [HomeController::class, 'store'])->name('tamu.store');

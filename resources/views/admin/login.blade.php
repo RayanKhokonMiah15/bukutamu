@@ -4,65 +4,23 @@
     <meta charset="UTF-8">
     <title>Login Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: sans-serif;
-            background: #f4f4f4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .login-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .input-group {
-            margin-bottom: 1rem;
-        }
-        label {
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-        input[type="email"], input[type="password"] {
-            width: 100%;
-            padding: 0.5rem;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .error {
-            color: red;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-        button {
-            width: 100%;
-            padding: 0.75rem;
-            border: none;
-            background: #007BFF;
-            color: white;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-    </style>
+  <link rel="stylesheet" href="{{ asset('AdminCss/login.css') }}">
 </head>
 <body>
     <div class="login-container">
         <h2>Admin Login</h2>
+        @if(session('success'))
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                {{ session('success') }}
+            </div>
+        @endif
+        
         @if(session('error'))
-            <div class="error">{{ session('error') }}</div>
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ session('error') }}
+            </div>
         @endif
         <form action="{{ route('admin.login') }}" method="POST">
             @csrf
