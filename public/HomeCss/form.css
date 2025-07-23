@@ -28,13 +28,13 @@
 }
 
 .form-container::before {
-    background: #4299e1;
+    background: #008D00;
     top: -250px;
     left: -250px;
 }
 
 .form-container::after {
-    background: #805ad5;
+    background: #00b82e;
     bottom: -250px;
     right: -250px;
 }
@@ -63,7 +63,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(to right, #4299e1, #805ad5);
+    background: linear-gradient(to right, #009200, #10d141  );
 }
 
 .card-header {
@@ -92,7 +92,7 @@
     transform: translateX(-50%);
     width: 50px;
     height: 3px;
-    background: linear-gradient(to right, #4299e1, #805ad5);
+    background: linear-gradient(to right, #005c00, #00db37 );
     border-radius: 2px;
 }
         .card-body {
@@ -125,13 +125,13 @@
 }
 
 .form-control:focus {
-    border-color: #4299e1;
+    border-color: #009200;
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
     outline: none;
 }
 
 .form-control:hover {
-    border-color: #4299e1;
+    border-color: #00db37;
     background: #ffffff;
 }
 
@@ -183,7 +183,7 @@ textarea.form-control {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #4299e1 0%, #805ad5 100%);
+    background: linear-gradient(135deg,#048023   0%, #3ef83e 100%);
     color: white;
     box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
 }
@@ -293,7 +293,7 @@ textarea.form-control {
 }
 
 .form-control[type="file"]::-webkit-file-upload-button {
-    background: linear-gradient(135deg, #4299e1 0%, #805ad5 100%);
+    background: linear-gradient(135deg, #0bee75 0%, #26dd73 100%);
     border: none;
     border-radius: 8px;
     padding: 0.7rem 1.5rem;
