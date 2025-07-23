@@ -83,5 +83,6 @@
             document.body.classList.toggle("sidebar-shown");
         });
     </script>
+    @stack('scripts')
 </body>
 </html>

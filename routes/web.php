@@ -24,7 +24,9 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 
 // User form routes
 Route::get('/form', [UserController::class, 'form'])->name('user.form');
+
 Route::post('/tamu', [HomeController::class, 'store'])->name('tamu.store');
+Route::delete('/tamu/{id}', [HomeController::class, 'destroy'])->name('tamu.destroy');
 
 
 

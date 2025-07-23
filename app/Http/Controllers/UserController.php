@@ -16,18 +16,33 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'instansi' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
             'no_telepon' => 'nullable|string|max:20',
             'keperluan' => 'required|string',
-            'foto_wajah' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+            'waktu_datang' => 'required|string',
+            'foto_wajah' => 'required|string'
         ]);
 
-        if ($request->hasFile('foto_wajah')) {
-            $foto = $request->file('foto_wajah');
-            $filename = time() . '.' . $foto->getClientOriginalExtension();
-            $foto->storeAs('public/foto_tamu', $filename);
-            $validated['foto_wajah'] = 'foto_tamu/' . $filename;
+        // Proses foto wajah base64
+        $fotoPath = null;
+        if ($request->filled('foto_wajah')) {
+            $base64 = $request->input('foto_wajah');
+            if (preg_match('/^data:image\/(\w+);base64,/', $base64, $type)) {
+                $base64 = substr($base64, strpos($base64, ',') + 1);
+                $type = strtolower($type[1]); // jpg, png, etc
+                $base64 = base64_decode($base64);
+                if ($base64 === false) {
+                    return back()->withErrors(['foto_wajah' => 'Gagal decode gambar.']);
+                }
+                $fileName = 'foto_' . uniqid() . '.' . $type;
+                $filePath = 'foto_tamu/' . $fileName;
+                \Storage::disk('public')->put($filePath, $base64);
+                $fotoPath = $filePath;
+            } else {
+                return back()->withErrors(['foto_wajah' => 'Format gambar tidak valid.']);
+            }
         }
+        $validated['foto_wajah'] = $fotoPath;
 
         BukuTamu::create($validated);
 

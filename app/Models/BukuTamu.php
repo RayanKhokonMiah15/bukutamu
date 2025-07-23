@@ -8,7 +8,7 @@ class BukuTamu extends Model
 {
     protected $fillable = [
         'nama',
-        'instansi',
+        'alamat',
         'no_telepon',
         'keperluan',
         'waktu_datang',
