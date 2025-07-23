@@ -5,7 +5,7 @@
         
         #sidebar-wrapper {
             min-height: 100vh;
-            width: 280px;
+            width: 250px;
             margin-left: -280px;
             background-color: #ffffff;
             transition: all 0.3s ease;
@@ -28,9 +28,22 @@
         }
 
         .sidebar-brand img {
-            height: 35px;
+            height: 40px;
             width: auto;
         }
+
+        .sidebar-brand p {
+            display: flex;
+            align-items: center; 
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-top: 0.5rem;
+            position: absolute;
+            top: 3%;
+            left: 25%;
+            text-align: left;
+       }
 
         .sidebar-footer {
             padding: 1rem 1.5rem;
@@ -78,7 +91,7 @@
         .alert-success {
             background-color: #f0fdf4;
             border: 1px solid #dcfce7;
-            color: #16a34a;
+            color: #030503;
         }
 
         .alert-error {
@@ -108,7 +121,7 @@
 
         .sidebar .nav-link {
             font-weight: 500;
-            color: #64748b;
+            color: #3b3a3a;
             padding: 0.875rem 1.5rem;
             display: flex;
             align-items: center;
@@ -118,19 +131,19 @@
         }
 
         .sidebar .nav-link:hover {
-            color: #0f172a;
-            background-color: #f8fafc;
+            color: #00ff7f;
+            
         }
 
         .sidebar .nav-link.active {
-            color: #3b82f6;
+            color: #00ff7f;
             background-color: #eff6ff;
             font-weight: 600;
         }
 
         .sidebar .nav-link i {
             margin-right: 0.75rem;
-            width: 20px;
+            width: 10px;
             text-align: center;
             font-size: 1.1rem;
             transition: transform 0.3s ease;
@@ -142,7 +155,7 @@
 
         #page-content-wrapper {
             min-width: calc(100vw - 250px);
-            margin-left: 250px;
+            margin-left: 150px;
             transition: margin 0.25s ease-out;
             position: relative;
         }
@@ -169,7 +182,7 @@
         }
 
         #menu-toggle:hover {
-            color: #007bff;
+            color: #00ff7f;
         }
 
         /* When sidebar is hidden */

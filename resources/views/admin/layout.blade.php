@@ -14,7 +14,8 @@
         <div id="sidebar-wrapper">
             <div class="sidebar">
                 <div class="sidebar-brand">
-                    <img src="{{ asset('ImageHome/logoptun-removebg.png') }}" alt="PTUN Logo">
+                    <img src="{{ asset('ImageHome/logoptun-removebg-preview.png') }}" alt="PTUN Logo">
+                    <p>Pengadilan Tata Usaha Negara Bandung </p>
                 </div>
                 <div class="flex-grow-1">
                     <ul class="nav flex-column">
