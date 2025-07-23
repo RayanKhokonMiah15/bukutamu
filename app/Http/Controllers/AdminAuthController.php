@@ -31,7 +31,7 @@ class AdminAuthController extends Controller
         Session::put('is_admin_logged_in', true);
         Session::put('admin_id', $admin->id);
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.dashboard')->with('success', 'Selamat datang di Panel Admin PTUN Bandung');
     }
 
     public function logout()
@@ -40,7 +40,7 @@ class AdminAuthController extends Controller
         Session::forget('admin_id');
         Session::forget('admin');
 
-        return redirect()->route('admin.login')->with('success', 'Berhasil logout.');
+        return redirect()->route('admin.login')->with('success', 'Berhasil Logout dari sistem.');
     }
 
     public function dashboard()

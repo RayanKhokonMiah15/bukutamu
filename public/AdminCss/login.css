@@ -1,51 +1,373 @@
- body {
-            font-family: sans-serif;
-            background: #f4f4f4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .login-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .input-group {
-            margin-bottom: 1rem;
-        }
-        label {
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-        input[type="email"], input[type="password"] {
-            width: 100%;
-            padding: 0.5rem;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .error {
-            color: red;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-        button {
-            width: 100%;
-            padding: 0.75rem;
-            border: none;
-            background: #007BFF;
-            color: white;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #041811;
+    background-image: url('/ImageHome/pattern.svg');
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(10, 47, 29, 0.95), rgba(0, 30, 15, 0.97));
+    z-index: 0;
+}
+
+.page-container {
+    width: 100%;
+    max-width: 1000px;
+    min-height: 600px;
+    background: rgba(0, 40, 20, 0.6);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 127, 0.1);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+}
+
+.login-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 40, 20, 0.9), rgba(0, 20, 10, 0.95));
+}
+
+.left-section {
+    flex: 1;
+    padding: 4rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(0, 100, 50, 0.2), rgba(0, 60, 30, 0.3));
+    backdrop-filter: blur(5px);
+}
+
+.left-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/ImageHome/pattern.svg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.left-section h4 {
+    font-size: 1rem;
+    color: #e0e0e0;
+    margin-bottom: 1rem;
+    position: absolute;
+    top: 30px;
+    right: 85px;
+}
+.left-section h1,
+.left-section p {
+    position: relative;
+    z-index: 2;
+}
+
+.left-section h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.left-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 400px;
+}
+
+.welcome-logo {
+    width: 50px;
+    margin-top: 2rem;
+    position: absolute;
+    top: -20px;
+    left:15px;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.right-section {
+    flex: 1;
+    padding: 4rem;
+    background: rgba(0, 20, 10, 0.4);
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+}
+
+.right-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    color: #00ff7f;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 255, 127, 0.1);
+    border: 1px solid rgba(0, 255, 127, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00ff7f;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: rgba(0, 255, 127, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 127, 0.1);
+}
+
+.login-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+input {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 127, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus {
+    outline: none;
+    border-color: #00ff7f;
+    background: rgba(0, 255, 127, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 127, 0.1);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #00ff7f;
+    color: #041811;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login-btn:hover {
+    background: #00cc66;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 127, 0.2);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.social-login p {
+    color: rgba(255, 255, 255, 0.6);
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+.social-login p::before,
+.social-login p::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.social-login p::before {
+    left: 0;
+}
+
+.social-login p::after {
+    right: 0;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.login-link a {
+    color: #00a86b;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: #ff6b6b;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.alert-success {
+    background: rgba(0, 168, 107, 0.2);
+    border: 1px solid rgba(0, 168, 107, 0.3);
+    color: #00a86b;
+}
+
+.alert-error {
+    background: rgba(255, 107, 107, 0.2);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    color: #ff6b6b;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .left-section {
+        padding: 3rem;
+    }
+
+    .left-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .right-section {
+        padding: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+    }
+
+    .left-section {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .left-section p {
+        margin: 0 auto;
+    }
+
+    .welcome-logo {
+        margin: 2rem auto 0;
+    }
+
+    .right-section {
+        padding: 2rem;
+    }
+
+    .login-form {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 1rem;
+    }
+
+    .left-section {
+        padding: 1.5rem;
+    }
+
+    .left-section h1 {
+        font-size: 2rem;
+    }
+
+    .right-section {
+        padding: 1.5rem;
+    }
+
+    .social-icons {
+        gap: 0.75rem;
+    }
+
+    .social-icon {
+        width: 35px;
+        height: 35px;
+    }
+}
