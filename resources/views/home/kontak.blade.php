@@ -60,16 +60,16 @@
                     Media Sosial
                 </h3>
                 <div class="social-links">
-                    <a href="#" class="social-link" title="Facebook">
+                    <a href="https://www.facebook.com/share/1CnzYc9yij/" class="social-link" title="Facebook">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="#" class="social-link" title="Twitter">
-                        <i class="fab fa-twitter"></i>
+                    <a href="https://x.com/ptunbandung" class="social-link" title="X">
+                        <i class="fab fa-x"></i>
                     </a>
-                    <a href="#" class="social-link" title="Instagram">
+                    <a href="https://www.instagram.com/ptun.bandung?igsh=MWViZmJoc3Z6amQ5cg==" class="social-link" title="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="social-link" title="YouTube">
+                    <a href="https://youtube.com/@ptun_bandung?si=RDAJ-WZod8NeHA9p" class="social-link" title="YouTube">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
