@@ -78,7 +78,7 @@
 
         <div class="contact-map">
             <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.764602770798!2d107.61486731477269!3d-6.922777694998633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e64c5e8866e5%3A0x37be7ac9d575f7ed!2sPengadilan%20Tata%20Usaha%20Negara%20Bandung!5e0!3m2!1sen!2sid!4v1647829738254!5m2!1sen!2sid"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.908937408077!2d107.61999157408611!3d-6.901493193097789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7b36810984d%3A0x5dba7e349b2693e7!2sPengadilan%20Tata%20Usaha%20Negara%20Bandung!5e0!3m2!1sid!2sid!4v1753286169036!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
                 allowfullscreen=""
                 loading="lazy">
             </iframe>
