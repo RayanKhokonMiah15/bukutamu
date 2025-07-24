@@ -50,13 +50,27 @@
                                         @else
                                             <span class="text-muted">-</span>
                                         @endif
-                                        <form action="{{ route('tamu.destroy', $tamu->id) }}" method="POST" style="display:inline-block; margin-top:5px;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data tamu ini?')">
-                                                <i class="fas fa-trash"></i> Hapus
-                                            </button>
-                                        </form>
+                                        <div class="d-flex flex-wrap gap-1 mt-2">
+                                            <form action="{{ route('tamu.accept', $tamu->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-success" title="Accept"><i class="fas fa-check"></i></button>
+                                            </form>
+                                            <form action="{{ route('tamu.pending', $tamu->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-warning" title="Pending"><i class="fas fa-hourglass-half"></i></button>
+                                            </form>
+                                            <form action="{{ route('tamu.reject', $tamu->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject"><i class="fas fa-times"></i></button>
+                                            </form>
+                                            <form action="{{ route('tamu.destroy', $tamu->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data tamu ini?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

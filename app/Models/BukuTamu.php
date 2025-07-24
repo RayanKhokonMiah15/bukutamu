@@ -12,7 +12,8 @@ class BukuTamu extends Model
         'no_telepon',
         'keperluan',
         'waktu_datang',
-        'foto_wajah'
+        'foto_wajah',
+        'status'
     ];
 
     protected $casts = [

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\BukuTamu;
@@ -8,6 +7,43 @@ use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
+    // Statistik tamu
+    public function statistik(Request $request)
+    {
+        $totalTamu = BukuTamu::count();
+        $totalAccept = BukuTamu::where('status', 'accept')->count();
+        $totalReject = BukuTamu::where('status', 'reject')->count();
+        $today = now()->toDateString();
+        $totalToday = BukuTamu::whereDate('waktu_datang', $today)->count();
+
+        // Filter bulan dan tahun
+        $selectedMonth = $request->input('bulan') ?? now()->format('m');
+        $selectedYear = $request->input('tahun') ?? now()->format('Y');
+        $monthYear = $selectedYear . '-' . $selectedMonth;
+        $totalMonth = BukuTamu::whereRaw("DATE_FORMAT(waktu_datang, '%Y-%m') = ?", [$monthYear])->count();
+
+        return view('admin.statistik', compact('totalTamu', 'totalAccept', 'totalReject', 'totalToday', 'totalMonth', 'selectedMonth', 'selectedYear'));
+    }
+    // Halaman daftar tamu diterima
+    public function acceptPage()
+    {
+        $tamus = BukuTamu::where('status', 'accept')->get();
+        return view('admin.accept', compact('tamus'));
+    }
+
+    // Halaman daftar tamu pending
+    public function pendingPage()
+    {
+        $tamus = BukuTamu::where('status', 'pending')->get();
+        return view('admin.pending', compact('tamus'));
+    }
+
+    // Halaman daftar tamu ditolak
+    public function rejectPage()
+    {
+        $tamus = BukuTamu::where('status', 'reject')->get();
+        return view('admin.reject', compact('tamus'));
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -44,7 +80,7 @@ class HomeController extends Controller
 
         BukuTamu::create($data);
 
-        return redirect()->route('home')
+        return redirect()->route('user.form')
             ->with('success', 'Data tamu berhasil disimpan!');
     }
 
@@ -57,5 +93,31 @@ class HomeController extends Controller
         }
         $tamu->delete();
         return redirect()->back()->with('success', 'Data tamu berhasil dihapus!');
+    }
+    // Setujui tamu
+    public function accept($id)
+    {
+        $tamu = \App\Models\BukuTamu::findOrFail($id);
+        $tamu->status = 'accept';
+        $tamu->save();
+        return redirect()->route('tamu.accept.page')->with('success', 'Tamu berhasil di-accept.');
+    }
+
+    // Pending tamu
+    public function pending($id)
+    {
+        $tamu = \App\Models\BukuTamu::findOrFail($id);
+        $tamu->status = 'pending';
+        $tamu->save();
+        return redirect()->route('tamu.pending.page')->with('success', 'Tamu berhasil dipending.');
+    }
+
+    // Tolak tamu
+    public function reject($id)
+    {
+        $tamu = \App\Models\BukuTamu::findOrFail($id);
+        $tamu->status = 'reject';
+        $tamu->save();
+        return redirect()->route('tamu.reject.page')->with('success', 'Tamu berhasil direject.');
     }
 }

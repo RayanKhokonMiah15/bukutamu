@@ -155,10 +155,26 @@ body::before {
 .login-form {
     width: 100%;
     max-width: 400px;
+    background: rgba(24,32,28,0.96); /* glassmorphism dark */
+    border-radius: 20px;
+    padding: 2.5rem 2rem 2.2rem 2rem;
+    box-shadow: 0 8px 32px rgba(0,255,127,0.10), 0 2px 16px rgba(0,0,0,0.18);
+    border: 1px solid rgba(0,255,127,0.08);
+    backdrop-filter: blur(10px);
+    margin: 2.5rem auto 2.5rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    position: relative;
+    z-index: 2;
+    transition: box-shadow 0.2s, padding 0.2s;
 }
 
 .input-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 input {
@@ -186,22 +202,23 @@ input:focus {
 .login-btn {
     width: 100%;
     padding: 1rem;
-    background: #00ff7f;
+    background: linear-gradient(90deg, #00ff7f 0%, #00c97b 100%);
     color: #041811;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 10px;
+    font-size: 1.08rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
     text-transform: uppercase;
     letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(0,255,127,0.10);
 }
 
 .login-btn:hover {
-    background: #00cc66;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 255, 127, 0.2);
+    background: linear-gradient(90deg, #00c97b 0%, #00ff7f 100%);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,255,127,0.18);
 }
 
 .social-icons {
@@ -283,12 +300,14 @@ input:focus {
 }
 
 .alert {
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
+    padding: 0.85rem 1.1rem;
+    border-radius: 10px;
+    margin-bottom: 1.2rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    font-size: 0.98rem;
+    box-shadow: 0 1px 6px rgba(0,255,127,0.07);
 }
 
 .alert-success {
@@ -322,26 +341,22 @@ input:focus {
     .login-container {
         flex-direction: column;
     }
-
     .left-section {
-        padding: 2rem;
+        padding: 1.2rem 1.2rem 0.5rem 1.2rem;
         text-align: center;
     }
-
     .left-section p {
         margin: 0 auto;
     }
-
     .welcome-logo {
         margin: 2rem auto 0;
     }
-
     .right-section {
-        padding: 2rem;
+        padding: 1.2rem 1.2rem 1.5rem 1.2rem;
     }
-
     .login-form {
-        margin: 0 auto;
+        padding: 1.5rem 0.7rem 1.2rem 0.7rem;
+        margin: 1.5rem auto 1.5rem auto;
     }
 }
 

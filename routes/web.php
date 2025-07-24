@@ -38,4 +38,15 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 // Admin Panel (protected by middleware - gunakan class langsung, bukan alias)
 Route::prefix('admin')->middleware(AdminMiddleware::class)->group(function () {
     Route::get('/', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
+
+    // Halaman status tamu
+    Route::get('/statistik', [\App\Http\Controllers\HomeController::class, 'statistik'])->name('admin.statistik');
+    Route::get('/accept', [\App\Http\Controllers\HomeController::class, 'acceptPage'])->name('tamu.accept.page');
+    Route::get('/pending', [\App\Http\Controllers\HomeController::class, 'pendingPage'])->name('tamu.pending.page');
+    Route::get('/reject', [\App\Http\Controllers\HomeController::class, 'rejectPage'])->name('tamu.reject.page');
 });
+
+// Aksi status tamu
+Route::post('/tamu/{id}/accept', [HomeController::class, 'accept'])->name('tamu.accept');
+Route::post('/tamu/{id}/pending', [HomeController::class, 'pending'])->name('tamu.pending');
+Route::post('/tamu/{id}/reject', [HomeController::class, 'reject'])->name('tamu.reject');

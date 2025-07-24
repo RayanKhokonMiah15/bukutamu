@@ -26,7 +26,25 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('admin/statistik*') ? 'active' : '' }}" href="#">
+                            <a class="nav-link {{ Request::is('admin/accept') ? 'active' : '' }}" href="{{ route('tamu.accept.page') }}">
+                                <i class="fas fa-check-circle text-success"></i>
+                                Accept
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('admin/pending') ? 'active' : '' }}" href="{{ route('tamu.pending.page') }}">
+                                <i class="fas fa-hourglass-half text-warning"></i>
+                                Pending
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('admin/reject') ? 'active' : '' }}" href="{{ route('tamu.reject.page') }}">
+                                <i class="fas fa-times-circle text-danger"></i>
+                                Reject
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('admin/statistik') ? 'active' : '' }}" href="{{ route('admin.statistik') }}">
                                 <i class="fas fa-chart-bar"></i>
                                 Statistik Tamu
                             </a>
@@ -48,7 +66,7 @@
                 <div class="sidebar-footer">
                     <form action="{{ route('admin.logout') }}" method="POST" class="w-100">
                         @csrf
-                        <button type="submit" class="btn btn-logout w-100">
+                        <button type="button" id="logoutBtn" class="btn btn-logout w-100">
                             <i class="fas fa-sign-out-alt"></i>
                             Logout
                         </button>
@@ -77,12 +95,55 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.getElementById("menu-toggle").addEventListener("click", function(e) {
+        const menuToggle = document.getElementById("menu-toggle");
+        const wrapper = document.getElementById("wrapper");
+
+        function openSidebar() {
+            wrapper.classList.add("toggled");
+            document.body.classList.add("sidebar-shown");
+        }
+        function closeSidebar() {
+            wrapper.classList.remove("toggled");
+            document.body.classList.remove("sidebar-shown");
+        }
+
+        menuToggle.addEventListener("click", function(e) {
             e.preventDefault();
-            document.getElementById("wrapper").classList.toggle("toggled");
-            document.body.classList.toggle("sidebar-shown");
+            if (wrapper.classList.contains("toggled")) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
         });
+
+        // Optional: close sidebar on resize if desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeSidebar();
+            }
+        });
+
+        // SweetAlert konfirmasi logout admin
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Anda yakin ingin logout?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Logout',
+                    cancelButtonText: 'Batalkan',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        logoutBtn.closest('form').submit();
+                    }
+                });
+            });
+        }
     </script>
     @stack('scripts')
 </body>

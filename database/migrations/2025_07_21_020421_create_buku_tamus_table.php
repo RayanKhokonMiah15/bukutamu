@@ -19,6 +19,7 @@ return new class extends Migration
     $table->text('keperluan');
     $table->timestamp('waktu_datang')->useCurrent();
     $table->string('foto_wajah')->nullable();
+    $table->string('status')->default('pending');
     $table->timestamps();
 });
 

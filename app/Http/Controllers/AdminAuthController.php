@@ -45,7 +45,7 @@ class AdminAuthController extends Controller
 
     public function dashboard()
     {
-        $tamus = BukuTamu::latest()->get(); // ✅ FIX: ganti Tamu menjadi BukuTamu
+        $tamus = BukuTamu::where('status', 'pending')->latest()->get();
         return view('admin.dashboard', compact('tamus'));
     }
 }

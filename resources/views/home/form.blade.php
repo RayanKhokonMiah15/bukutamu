@@ -15,15 +15,7 @@
     <div class="container-fluid form-container">
         <div class="row justify-content-center">
             <div class="col-xxl-8 col-xl-9 col-lg-10">
-                @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-check-circle me-2"></i>
-                            {{ session('success') }}
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
+
 
                 <div class="card shadow">
                     <div class="card-header">
@@ -152,6 +144,7 @@
     {{-- JavaScript Dependencies --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
     // Inisialisasi smooth scroll untuk anchor links
@@ -163,6 +156,20 @@
             });
         });
     });
+
+
+    // SweetAlert sukses setelah submit
+    @if(session('success'))
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: '{{ session('success') }}',
+        confirmButtonText: 'OK',
+        timer: 2500
+    }).then(function() {
+        window.location.href = '{{ route('home') }}';
+    });
+    @endif
 
     // Inisialisasi Flatpickr untuk input tanggal
     flatpickr("#waktu_datang", {
