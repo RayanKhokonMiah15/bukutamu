@@ -33,6 +33,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
+                <a href="{{ url('/') }}" class="btn btn-outline-primary mb-3" style="width:100%;"><i class="fas fa-arrow-left me-2"></i>Kembali ke Beranda</a>
                 <form action="{{ route('admin.login') }}" method="POST" class="login-form">
                     @csrf
                     <div class="input-group">

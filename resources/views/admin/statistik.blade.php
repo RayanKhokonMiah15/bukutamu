@@ -39,6 +39,66 @@
                         <div class="mb-2"><i class="fas fa-calendar-day fa-2x text-info"></i></div>
                         <h6 class="card-title text-uppercase">Tamu Hari Ini</h6>
                         <p class="display-5 fw-bold mb-0">{{ $totalToday }}</p>
+                        @php
+                            // Ambil data tamu hari ini yang statusnya masih null (belum diproses)
+                            $today = now()->toDateString();
+                            $unprocessedTodayList = \App\Models\BukuTamu::whereDate('waktu_datang', $today)->whereNull('status')->get();
+                            $unprocessedToday = $unprocessedTodayList->count();
+                            // Untuk JSON, gunakan array_map agar tidak error blade
+                            $unprocessedTodayArray = $unprocessedTodayList->map(function($t){
+                                return [
+                                    'nama' => $t->nama,
+                                    'alamat' => $t->alamat,
+                                    'no_telepon' => $t->no_telepon,
+                                    'keperluan' => $t->keperluan
+                                ];
+                            })->values()->toArray();
+                        @endphp
+                        @if($unprocessedToday > 0)
+                            <div class="alert alert-warning mt-3 mb-0 p-2 small d-flex align-items-center justify-content-center" style="font-size:1rem;">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <span><b>{{ $unprocessedToday }}</b> tamu hari ini belum diproses!</span>
+                                <button id="btnShowUnprocessed" class="btn btn-sm btn-outline-primary ms-3 py-0 px-2" type="button" style="font-size:0.95rem;">Lihat</button>
+                            </div>
+                            @push('scripts')
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    if (!window.__reminderShown) {
+                                        Swal.fire({
+                                            icon: 'warning',
+                                            title: 'Pengingat! Ada tamu hari ini yang belum diproses',
+                                            text: 'Segera proses tamu hari ini agar tidak terlewat.',
+                                            confirmButtonText: 'OK',
+                                            timer: 6000
+                                        });
+                                        window.__reminderShown = true;
+                                    }
+                                    // Data tamu belum diproses hari ini
+                                    var unprocessedData = @json($unprocessedTodayArray);
+                                    var btn = document.getElementById('btnShowUnprocessed');
+                                    if(btn) {
+                                        btn.addEventListener('click', function() {
+                                            let html = '<div class="table-responsive"><table class="table table-bordered table-sm mb-0"><thead><tr><th>Nama</th><th>Alamat</th><th>No. Telp</th><th>Keperluan</th></tr></thead><tbody>';
+                                            if(unprocessedData.length > 0) {
+                                                unprocessedData.forEach(function(row) {
+                                                    html += '<tr>' + [row.nama, row.alamat, row.no_telepon, row.keperluan].map(function(col){ return '<td>'+col+'</td>'; }).join('') + '</tr>';
+                                                });
+                                            } else {
+                                                html += '<tr><td colspan="4" class="text-center">Tidak ada tamu belum diproses.</td></tr>';
+                                            }
+                                            html += '</tbody></table></div>';
+                                            Swal.fire({
+                                                title: 'Tamu Hari Ini Belum Diproses',
+                                                html: html,
+                                                width: 700,
+                                                confirmButtonText: 'Tutup',
+                                            });
+                                        });
+                                    }
+                                });
+                            </script>
+                            @endpush
+                        @endif
                     </div>
                 </div>
             </div>
@@ -71,6 +131,64 @@
                         <div class="mb-2"><i class="fas fa-calendar-alt fa-2x text-warning"></i></div>
                         <h6 class="card-title text-uppercase mb-3">Tamu Bulan Ini</h6>
                         <p class="display-5 fw-bold mb-0">{{ $totalMonth }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabel Data Tamu Bulanan -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card shadow border-0">
+                    <div class="card-header bg-primary text-white fw-bold d-flex justify-content-between align-items-center">
+                        <span>Data Tamu Bulan {{ DateTime::createFromFormat('!m', $selectedMonth)->format('F') }} {{ $selectedYear }}</span>
+                        <a href="{{ route('admin.buku-tamu.export-pdf', ['bulan' => $selectedMonth, 'tahun' => $selectedYear]) }}" target="_blank" class="btn btn-light btn-sm fw-bold">
+                            <i class="fas fa-file-pdf text-danger me-1"></i> Export PDF
+                        </a>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>No. Telepon</th>
+                                        <th>Keperluan</th>
+                                        <th>Waktu Datang</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($guestsMonth as $i => $guest)
+                                        <tr>
+                                            <td>{{ $i + 1 }}</td>
+                                            <td>{{ $guest->nama }}</td>
+                                            <td>{{ $guest->alamat }}</td>
+                                            <td>{{ $guest->no_telepon }}</td>
+                                            <td>{{ $guest->keperluan }}</td>
+                                            <td>{{ $guest->waktu_datang ? \Carbon\Carbon::parse($guest->waktu_datang)->format('d-m-Y H:i') : '-' }}</td>
+                                            <td>
+                                                @if($guest->status === 'accept')
+                                                    <span class="badge bg-success">Diterima</span>
+                                                @elseif($guest->status === 'pending')
+                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                @elseif($guest->status === 'reject')
+                                                    <span class="badge bg-danger">Ditolak</span>
+                                                @else
+                                                    <span class="badge bg-secondary">Belum Diproses</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center">Tidak ada data tamu untuk bulan ini.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

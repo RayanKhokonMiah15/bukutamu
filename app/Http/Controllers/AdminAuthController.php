@@ -45,7 +45,8 @@ class AdminAuthController extends Controller
 
     public function dashboard()
     {
-        $tamus = BukuTamu::where('status', 'pending')->latest()->get();
+        // Tampilkan hanya tamu yang status-nya null (belum di-accept, pending, atau reject)
+        $tamus = BukuTamu::whereNull('status')->latest()->get();
         return view('admin.dashboard', compact('tamus'));
     }
 }

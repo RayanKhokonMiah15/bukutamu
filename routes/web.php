@@ -1,3 +1,6 @@
+// Export PDF Buku Tamu Bulanan
+use App\Http\Controllers\ExportController;
+Route::get('/admin/buku-tamu/export-pdf', [ExportController::class, 'exportBukuTamuPerBulan'])->name('admin.buku-tamu.export-pdf');
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -38,6 +41,9 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 // Admin Panel (protected by middleware - gunakan class langsung, bukan alias)
 Route::prefix('admin')->middleware(AdminMiddleware::class)->group(function () {
     Route::get('/', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
+
+    // Export PDF Buku Tamu Bulanan (harus di dalam group admin)
+    Route::get('/buku-tamu/export-pdf', [ExportController::class, 'exportBukuTamuPerBulan'])->name('admin.buku-tamu.export-pdf');
 
     // Halaman status tamu
     Route::get('/statistik', [\App\Http\Controllers\HomeController::class, 'statistik'])->name('admin.statistik');

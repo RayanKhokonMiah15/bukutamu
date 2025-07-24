@@ -31,6 +31,16 @@
                                         @else
                                             <span class="text-muted">-</span>
                                         @endif
+                                        <div class="d-flex flex-wrap gap-1 mt-2">
+                                            <form action="{{ route('tamu.accept', $tamu->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-success" title="Accept"><i class="fas fa-check"></i></button>
+                                            </form>
+                                            <form action="{{ route('tamu.reject', $tamu->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Reject"><i class="fas fa-times"></i></button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

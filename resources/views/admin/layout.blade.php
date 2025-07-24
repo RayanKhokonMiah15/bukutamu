@@ -49,18 +49,7 @@
                                 Statistik Tamu
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('admin/laporan*') ? 'active' : '' }}" href="#">
-                                <i class="fas fa-calendar"></i>
-                                Laporan Harian
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('admin/pengaturan*') ? 'active' : '' }}" href="#">
-                                <i class="fas fa-cog"></i>
-                                Pengaturan
-                            </a>
-                        </li>
+                        <!-- Menu Laporan Harian dan Pengaturan dihapus sesuai permintaan -->
                     </ul>
                 </div>
                 <div class="sidebar-footer">

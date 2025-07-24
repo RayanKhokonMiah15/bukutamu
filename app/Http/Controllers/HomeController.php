@@ -22,7 +22,10 @@ class HomeController extends Controller
         $monthYear = $selectedYear . '-' . $selectedMonth;
         $totalMonth = BukuTamu::whereRaw("DATE_FORMAT(waktu_datang, '%Y-%m') = ?", [$monthYear])->count();
 
-        return view('admin.statistik', compact('totalTamu', 'totalAccept', 'totalReject', 'totalToday', 'totalMonth', 'selectedMonth', 'selectedYear'));
+        // Ambil data tamu untuk bulan & tahun terpilih
+        $guestsMonth = BukuTamu::whereRaw("DATE_FORMAT(waktu_datang, '%Y-%m') = ?", [$monthYear])->orderBy('waktu_datang', 'desc')->get();
+
+        return view('admin.statistik', compact('totalTamu', 'totalAccept', 'totalReject', 'totalToday', 'totalMonth', 'selectedMonth', 'selectedYear', 'guestsMonth'));
     }
     // Halaman daftar tamu diterima
     public function acceptPage()
@@ -77,6 +80,7 @@ class HomeController extends Controller
             }
         }
         $data['foto_wajah'] = $fotoPath;
+        $data['status'] = null; // Pastikan status null agar masuk dashboard
 
         BukuTamu::create($data);
 
