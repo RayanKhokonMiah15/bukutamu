@@ -15,8 +15,11 @@
             <div class="nav-content">
                 <div class="nav-brand">
                     <img src="{{ asset('ImageHome/logoptun-removebg-preview.png') }}" alt="PTUN Logo" class="nav-logo">
-                    <span class="nav-title">Pengadilan Tata Usaha Negara Bandung</span>
+                    <span class="nav-title">PTUN Bandung</span>
                 </div>
+                <button class="mobile-menu-btn" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <div class="nav-menu">
                     <a href="{{ url('/') }}" class="nav-link">Beranda</a>
                     <a href="{{ route('user.form') }}" class="nav-link">Isi Buku Tamu</a>
@@ -26,6 +29,22 @@
             </div>
         </div>
     </nav>
+    
+    <!-- Mobile Sidebar -->
+    <div class="mobile-sidebar">
+        <div class="sidebar-header">
+            <span>Menu</span>
+            <button class="close-sidebar" onclick="toggleMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidebar-menu">
+            <a href="{{ url('/') }}" class="sidebar-link">Beranda</a>
+            <a href="{{ route('user.form') }}" class="sidebar-link">Isi Buku Tamu</a>
+            <a href="{{ route('about') }}" class="sidebar-link">Tentang</a>
+            <a href="{{ route('kontak') }}" class="sidebar-link">Kontak</a>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main>
@@ -33,5 +52,21 @@
     </main>
 
     @stack('scripts')
+    <script>
+        function toggleMenu() {
+            const sidebar = document.querySelector('.mobile-sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.mobile-sidebar');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!sidebar.contains(event.target) && !mobileMenuBtn.contains(event.target) && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>

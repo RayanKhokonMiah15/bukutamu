@@ -12,7 +12,22 @@
 @endpush
 
 @section('content')
-    <div class="container-fluid form-container">
+    <!-- Intro Overlay -->
+    <div class="intro-overlay">
+        <div class="intro-content">
+            <div class="intro-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h1 class="intro-title">Selamat Datang</h1>
+            <p class="intro-text">di Sistem Buku Tamu PTUN Bandung</p>
+            <button class="intro-button">
+                <span>Mulai Mengisi</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="container-fluid form-container hidden-form">
         <div class="row justify-content-center">
             <div class="col-xxl-8 col-xl-9 col-lg-10">
 
@@ -83,13 +98,13 @@
 
                             <!-- Foto Wajah Live -->
                             <div class="mb-4">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <label class="form-label mb-0">
+                                <div class="text-center mb-3">
+                                    <label class="form-label fw-bold">
                                         <i class="fas fa-camera me-2 text-muted"></i>Foto Wajah (Live)
                                     </label>
-                                    <small class="text-muted">Ambil foto langsung dari kamera</small>
+                                    <div class="text-muted small">Ambil foto langsung dari kamera</div>
                                 </div>
-                                <div class="d-flex justify-content-center mb-2">
+                                <div class="camera-controls">
                                     <button type="button" class="btn btn-primary" id="startCameraBtn">
                                         <i class="fas fa-video"></i> Aktifkan Kamera
                                     </button>
@@ -147,6 +162,23 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
+    // Intro Animation Handler
+    document.addEventListener('DOMContentLoaded', function() {
+        const overlay = document.querySelector('.intro-overlay');
+        const form = document.querySelector('.hidden-form');
+        const introButton = document.querySelector('.intro-button');
+
+        introButton.addEventListener('click', function() {
+            overlay.classList.add('fade-out');
+            form.classList.add('visible');
+            
+            // Optional: Remove overlay from DOM after animation
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+        });
+    });
+
     // Inisialisasi smooth scroll untuk anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
