@@ -9,10 +9,95 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('HomeCss/form.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Animasi untuk overlay setelah submit */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animasi untuk alert sukses */
+        .swal2-popup {
+            padding: 2em !important;
+            border-radius: 20px !important;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 141, 0, 0.25) !important;
+        }
+
+        .swal2-title {
+            font-size: 2em !important;
+            background: linear-gradient(45deg, #008D00, #00b82e) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            font-weight: 700 !important;
+            padding: 0.5em 0 !important;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)) !important;
+        }
+
+        .success-message {
+            position: relative;
+            background: #f0fff4;
+            border: 2px solid #008D00;
+            border-radius: 15px;
+            padding: 2em;
+            margin: 1em 0;
+            overflow: hidden;
+            transform: translateZ(0);
+        }
+
+        .success-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #008D00, #00b82e, #008D00);
+            animation: loading 2s linear infinite;
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .countdown {
+            margin-top: 1em;
+            padding: 0.5em;
+            background: rgba(0, 141, 0, 0.1);
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        /* Animasi fade out custom */
+        @keyframes customFadeOut {
+            0% { 
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+            100% { 
+                opacity: 0;
+                transform: scale(0.95) translateY(-20px);
+            }
+        }
+
+        .fade-out-custom {
+            animation: customFadeOut 0.8s ease forwards;
+        }
+    </style>
 @endpush
 
 @section('content')
     <!-- Intro Overlay -->
+    @if(!session('success'))
     <div class="intro-overlay">
         <div class="intro-content">
             <div class="intro-icon">
@@ -26,8 +111,9 @@
             </button>
         </div>
     </div>
+    @endif
 
-    <div class="container-fluid form-container hidden-form">
+    <div class="container-fluid form-container {{ !session('success') ? 'hidden-form' : 'visible' }}">
         <div class="row justify-content-center">
             <div class="col-xxl-8 col-xl-9 col-lg-10">
 
@@ -109,10 +195,14 @@
                                         <i class="fas fa-video"></i> Aktifkan Kamera
                                     </button>
                                 </div>
-                                <div class="text-center mb-2 position-relative">
+                                <div class="text-center mb-2">
+                                    <div class="d-flex justify-content-end mb-2" style="max-width: 320px; margin: 0 auto;">
+                                        <button type="button" class="btn btn-warning btn-sm" id="closeCameraBtn" style="display:none;">
+                                            <i class="fas fa-times"></i> Tutup Kamera
+                                        </button>
+                                    </div>
                                     <video id="video" width="320" height="240" playsinline style="border-radius: 8px; background: #eee; display:none; transform: scaleX(-1);"></video>
                                     <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
-                                    <button type="button" class="btn btn-warning btn-sm mt-2" id="closeCameraBtn" style="display:none; position: absolute; right: 0; top: 0;">Tutup Kamera</button>
                                 </div>
                                 <div class="d-flex justify-content-center mb-2">
                                     <button type="button" class="btn btn-success" id="captureBtn" style="display:none;">
@@ -160,23 +250,27 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <script>
     // Intro Animation Handler
     document.addEventListener('DOMContentLoaded', function() {
         const overlay = document.querySelector('.intro-overlay');
-        const form = document.querySelector('.hidden-form');
+        const form = document.querySelector('.form-container');
         const introButton = document.querySelector('.intro-button');
 
-        introButton.addEventListener('click', function() {
-            overlay.classList.add('fade-out');
-            form.classList.add('visible');
-            
-            // Optional: Remove overlay from DOM after animation
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 500);
-        });
+        // Hanya jalankan jika overlay ada (tidak dalam kondisi success)
+        if (overlay && introButton) {
+            introButton.addEventListener('click', function() {
+                overlay.classList.add('fade-out');
+                form.classList.add('visible');
+                form.classList.remove('hidden-form');
+                
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 500);
+            });
+        }
     });
 
     // Inisialisasi smooth scroll untuk anchor links
@@ -192,14 +286,90 @@
 
     // SweetAlert sukses setelah submit
     @if(session('success'))
+    let timerInterval;
     Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: '{{ session('success') }}',
-        confirmButtonText: 'OK',
-        timer: 2500
+        title: '🌟 Pengisian Sukses! 🌟',
+        html: `
+            <div class="success-message">
+                <div style="transform: scale(1.2); margin-bottom: 20px;">
+                    <i class="fas fa-check-circle fa-bounce" style="color: #008D00; font-size: 4em;"></i>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <h3 style="color: #008D00; font-size: 1.4em; margin-bottom: 10px; font-weight: 600;">
+                        Data Berhasil Disimpan!
+                    </h3>
+                    <p style="color: #2f855a; font-size: 1.1em;">
+                        Terima kasih atas kunjungan Anda di PTUN Bandung
+                    </p>
+                </div>
+                <div class="countdown">
+                    <i class="fas fa-clock-rotate-left"></i> 
+                    Mengarahkan ke halaman about dalam <b style="color: #008D00"></b>
+                </div>
+            </div>
+        `,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+            
+            // Update countdown timer
+            const b = toast.querySelector('b');
+            timerInterval = setInterval(() => {
+                b.textContent = Math.ceil(Swal.getTimerLeft() / 1000) + ' detik';
+            }, 100);
+
+            // Confetti effect
+            const duration = 3000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50;
+
+                // Confetti from multiple directions
+                confetti(Object.assign({}, defaults, { 
+                    particleCount,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+                    colors: ['#008D00', '#00b82e', '#4CAF50', '#8BC34A']
+                }));
+                confetti(Object.assign({}, defaults, { 
+                    particleCount,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+                    colors: ['#008D00', '#00b82e', '#4CAF50', '#8BC34A']
+                }));
+            }, 250);
+        },
+        willClose: () => {
+            clearInterval(timerInterval);
+        }
     }).then(function() {
-        window.location.href = '{{ route('home') }}';
+        // Custom fade out animation
+        const fadeOut = document.createElement('style');
+        fadeOut.textContent = `
+            @keyframes customFadeOut {
+                from { opacity: 1; transform: scale(1); }
+                to { opacity: 0; transform: scale(0.95); }
+            }
+            body {
+                animation: customFadeOut 0.8s ease forwards !important;
+            }
+        `;
+        document.head.appendChild(fadeOut);
+        
+        setTimeout(() => {
+            window.location.href = '{{ route('about') }}';
+        }, 800);
     });
     @endif
 
