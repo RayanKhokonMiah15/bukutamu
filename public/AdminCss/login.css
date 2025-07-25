@@ -86,6 +86,23 @@ body::before {
     top: 30px;
     right: 85px;
 }
+
+.home-icon {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: #00ff7f;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.home-icon:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
 .left-section h1,
 .left-section p {
     position: relative;
