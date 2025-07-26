@@ -46,6 +46,6 @@ class UserController extends Controller
 
         BukuTamu::create($validated);
 
-        return redirect()->route('user.form')->with('success', 'Data berhasil disimpan!');
+        return redirect()->route('home')->with('success', 'Data berhasil disimpan!');
     }
 }

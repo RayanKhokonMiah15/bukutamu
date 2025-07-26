@@ -8,10 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware; // ⬅️ Tambahkan ini untuk pakai class middleware langsung
 use App\Http\Controllers\ExportController;
 
-// Welcome page
-Route::get('/', function () {
-    return view('home.welcome');
-})->name('home');
+// Default route langsung ke form
+Route::get('/', [UserController::class, 'form'])->name('home');
 
 Route::get('/about', function () { 
     return view('home.about');
@@ -24,8 +22,7 @@ Route::get('/kontak', function () {
 // Admin logout route
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-// User form routes
-Route::get('/form', [UserController::class, 'form'])->name('user.form');
+// User form routes - removed since it's now the default route
 
 Route::post('/tamu', [HomeController::class, 'store'])->name('tamu.store');
 Route::delete('/tamu/{id}', [HomeController::class, 'destroy'])->name('tamu.destroy');
