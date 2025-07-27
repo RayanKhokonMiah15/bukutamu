@@ -38,10 +38,8 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 Route::prefix('admin')->middleware(AdminMiddleware::class)->group(function () {
     Route::get('/', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
 
-    // Export PDF Buku Tamu Bulanan (harus di dalam group admin)
+    // Export PDF Buku Tamu Bulanan
     Route::get('/buku-tamu/export-pdf', [ExportController::class, 'exportBukuTamuPerBulan'])->name('admin.buku-tamu.export-pdf');
-
-    Route::get('/admin/buku-tamu/export-pdf', [ExportController::class, 'exportBukuTamuPerBulan'])->name('admin.buku-tamu.export-pdf');
 
     // Halaman status tamu
     Route::get('/statistik', [\App\Http\Controllers\HomeController::class, 'statistik'])->name('admin.statistik');

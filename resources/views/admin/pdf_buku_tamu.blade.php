@@ -24,7 +24,6 @@
                 <th>Alamat</th>
                 <th>No. Telepon</th>
                 <th>Keperluan</th>
-                <th>Waktu Datang</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -36,7 +35,6 @@
                     <td>{{ $guest->alamat }}</td>
                     <td>{{ $guest->no_telepon }}</td>
                     <td>{{ $guest->keperluan }}</td>
-                    <td>{{ $guest->waktu_datang ? Carbon::parse($guest->waktu_datang)->format('d-m-Y H:i') : '-' }}</td>
                     <td>
                         @if($guest->status === 'accept')
                             Diterima

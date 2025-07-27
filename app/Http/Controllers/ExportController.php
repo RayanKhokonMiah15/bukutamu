@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BukuTamu;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ExportController extends Controller
 {
@@ -20,6 +20,6 @@ class ExportController extends Controller
             'tahun' => $tahun
         ]);
         $filename = 'buku_tamu_' . $bulan . '_' . $tahun . '.pdf';
-        return $pdf->download($filename);
+        return $pdf->stream($filename);
     }
 }
