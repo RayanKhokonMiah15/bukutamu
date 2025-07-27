@@ -104,7 +104,7 @@
                 <i class="fas fa-book-open"></i>
             </div>
             <h1 class="intro-title">Selamat Datang</h1>
-            <p class="intro-text">di Sistem Buku Tamu PTUN Bandung</p>
+            <p class="intro-text">di Sistem Buku Tamu Digital PTUN Bandung</p>
             <button class="intro-button">
                 <span>Mulai Mengisi</span>
                 <i class="fas fa-arrow-right"></i>

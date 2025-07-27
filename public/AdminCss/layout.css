@@ -1,3 +1,6 @@
+       
+        
+        
         body {
             overflow-x: hidden;
             background: #ffffff;
@@ -28,7 +31,7 @@
 
         .bg-emoji:nth-child(1) { content: "📋"; top: 15%; left: 10%; animation-delay: 0s; }
         .bg-emoji:nth-child(2) { content: "📝"; top: 25%; right: 15%; animation-delay: -2s; }
-        .bg-emoji:nth-child(3) { content: "⚖️"; bottom: 20%; left: 20%; animation-delay: -4s; }
+        .bg-emoji:nth-child(3) { content: ""; bottom: 20%; left: 20%; animation-delay: -4s; }
         .bg-emoji:nth-child(4) { content: "✅"; bottom: 30%; right: 25%; animation-delay: -6s; }
         .bg-emoji:nth-child(5) { content: "📔"; top: 40%; left: 30%; animation-delay: -8s; }
 
@@ -120,7 +123,7 @@
         .sidebar-brand p {
             display: flex;
             align-items: center; 
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: #ffffff;
             margin-top: 0.5rem;
@@ -162,16 +165,6 @@
         }
 
         /* Custom decorative elements for law theme */
-        .sidebar::before {
-            content: "⚖";
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            opacity: 0.2;
-            color: #fff;
-        }
-
         .page-title {
             position: relative;
             padding-left: 2rem;
@@ -235,7 +228,7 @@
         .stats-card:nth-child(4) { animation-delay: 0.4s; }
 
         .stats-card::before {
-            content: "⚖️";
+            content: "";
             position: absolute;
             right: -10px;
             bottom: -10px;

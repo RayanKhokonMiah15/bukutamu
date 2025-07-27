@@ -4,26 +4,6 @@
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>📋 Daftar Tamu</h2>
-            <div class="export-section">
-                <form action="{{ route('admin.buku-tamu.export-pdf') }}" method="GET" class="d-flex align-items-center">
-                    <select name="bulan" class="form-control mr-2" style="width: 100px;">
-                        @for($i = 1; $i <= 12; $i++)
-                            <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" 
-                                {{ date('m') == $i ? 'selected' : '' }}>
-                                {{ date('F', mktime(0, 0, 0, $i, 1)) }}
-                            </option>
-                        @endfor
-                    </select>
-                    <select name="tahun" class="form-control mr-2" style="width: 100px;">
-                        @for($i = date('Y'); $i >= date('Y')-5; $i--)
-                            <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                    </select>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-file-pdf"></i> Export PDF
-                    </button>
-                </form>
-            </div>
         </div>
 
         @if(session('success'))
