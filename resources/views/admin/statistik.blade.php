@@ -168,7 +168,7 @@
                                             <td>{{ $guest->alamat }}</td>
                                             <td>{{ $guest->no_telepon }}</td>
                                             <td>{{ $guest->keperluan }}</td>
-                                            <td>{{ $guest->waktu_datang ? \Carbon\Carbon::parse($guest->waktu_datang)->format('d-m-Y H:i') : '-' }}</td>
+                                            <td>{{ $guest->waktu_datang ? \Carbon\Carbon::parse($guest->waktu_datang)->format('d-m-Y') : '-' }}</td>
                                             <td>
                                                 @if($guest->status === 'accept')
                                                     <span class="badge bg-success">Diterima</span>
