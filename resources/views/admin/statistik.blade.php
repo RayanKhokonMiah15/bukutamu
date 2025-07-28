@@ -153,6 +153,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
+                                        <th>Foto</th>
                                         <th>Alamat</th>
                                         <th>No. Telepon</th>
                                         <th>Keperluan</th>
@@ -165,6 +166,17 @@
                                         <tr>
                                             <td>{{ $i + 1 }}</td>
                                             <td>{{ $guest->nama }}</td>
+                                            <td>
+                                                @if($guest->foto_wajah)
+                                                    <img src="{{ asset('storage/' . $guest->foto_wajah) }}" 
+                                                         alt="Foto {{ $guest->nama }}" 
+                                                         class="img-thumbnail foto-zoom"
+                                                         style="height: 50px; width: 50px; object-fit: cover; cursor: pointer;"
+                                                         data-src="{{ asset('storage/' . $guest->foto_wajah) }}">
+                                                @else
+                                                    <span class="text-muted">-</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $guest->alamat }}</td>
                                             <td>{{ $guest->no_telepon }}</td>
                                             <td>{{ $guest->keperluan }}</td>
