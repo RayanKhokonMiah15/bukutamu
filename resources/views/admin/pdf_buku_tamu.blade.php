@@ -8,29 +8,105 @@
     <title>Data Tamu Bulan {{ DateTime::createFromFormat('!m', $bulan)->format('F') }} {{ $tahun }}</title>
     <style>
         body { 
-            font-family: Arial, sans-serif; 
-            font-size: 12px;
-            margin: 20px;
+            font-family: 'Helvetica', 'Arial', sans-serif; 
+            font-size: 11px;
+            margin: 0;
+            padding: 20px;
+            background: #ffffff;
+            color: #2d3748;
+            line-height: 1.4;
+        }
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .logo-container {
+            margin-bottom: 15px;
+        }
+        .logo {
+            width: 70px;
+            height: auto;
+        }
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a365d;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #4a5568;
+            margin: 5px 0;
+        }
+        .period {
+            display: inline-block;
+            background: #edf2f7;
+            padding: 5px 15px;
+            border-radius: 15px;
+            color: #2d3748;
+            font-size: 11px;
+            margin-top: 10px;
         }
         table { 
             width: 100%; 
             border-collapse: collapse; 
             margin-top: 20px;
-        }
-        th, td { 
-            border: 1px solid #333; 
-            padding: 8px; 
-            text-align: left;
-            vertical-align: middle;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         th { 
-            background: #f2f2f2;
-            font-weight: bold;
-        }
-        h2 { 
-            margin-bottom: 20px;
-            color: #333;
+            background: #2d3748;
+            color: white;
+            font-weight: 600;
+            font-size: 10px;
+            text-transform: uppercase;
+            padding: 12px 8px;
             text-align: center;
+            letter-spacing: 0.5px;
+        }
+        td { 
+            padding: 10px 8px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-size: 10px;
+        }
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+        .status-accepted {
+            background: #c6f6d5;
+            color: #276749;
+        }
+        .status-pending {
+            background: #feebc8;
+            color: #c05621;
+        }
+        .status-rejected {
+            background: #fed7d7;
+            color: #c53030;
+        }
+        .status-unprocessed {
+            background: #e2e8f0;
+            color: #4a5568;
         }
         .foto-tamu {
             width: 50px;
@@ -58,17 +134,28 @@
     </style>
 </head>
 <body>
-    <h2>Data Tamu Bulan {{ DateTime::createFromFormat('!m', $bulan)->format('F') }} {{ $tahun }}</h2>
+    <div class="header-section">
+        <div class="logo-container">
+            <img src="{{ public_path('ImageHome/logoptun-removebg-preview.png') }}" alt="Logo PTUN" class="logo">
+        </div>
+        <h1 class="title">Pengadilan Tata Usaha Negara</h1>
+        <div class="subtitle">Buku Tamu Digital</div>
+        <div class="period">
+            <i style="margin-right: 5px;">&#128197;</i>
+            Periode: {{ DateTime::createFromFormat('!m', $bulan)->format('F') }} {{ $tahun }}
+        </div>
+    </div>
+
     <table>
         <thead>
             <tr>
-                <th class="text-center" style="width: 5%;">No</th>
+                <th style="width: 5%;">No</th>
                 <th style="width: 15%;">Nama</th>
-                <th class="text-center" style="width: 10%;">Foto</th>
-                <th style="width: 20%;">Alamat</th>
+                <th style="width: 8%;">Foto</th>
+                <th style="width: 22%;">Alamat</th>
                 <th style="width: 12%;">No. Telepon</th>
                 <th style="width: 20%;">Keperluan</th>
-                <th style="width: 10%;">Waktu Datang</th>
+                <th style="width: 10%;">Tanggal</th>
                 <th style="width: 8%;">Status</th>
             </tr>
         </thead>
@@ -87,18 +174,20 @@
                         @endif
                     </td>
                     <td>{{ $guest->alamat }}</td>
-                    <td>{{ $guest->no_telepon }}</td>
+                    <td class="text-center">{{ $guest->no_telepon ?: '-' }}</td>
                     <td>{{ $guest->keperluan }}</td>
-                    <td>{{ $guest->waktu_datang ? Carbon::parse($guest->waktu_datang)->format('d-m-Y') : '-' }}</td>
-                    <td>
+                    <td class="text-center" style="color: #4a5568;">
+                        {{ $guest->waktu_datang ? Carbon::parse($guest->waktu_datang)->format('d/m/Y') : '-' }}
+                    </td>
+                    <td class="text-center">
                         @if($guest->status === 'accept')
-                            Diterima
+                            <span class="status-badge status-accepted">Diterima</span>
                         @elseif($guest->status === 'pending')
-                            Pending
+                            <span class="status-badge status-pending">Pending</span>
                         @elseif($guest->status === 'reject')
-                            Ditolak
+                            <span class="status-badge status-rejected">Ditolak</span>
                         @else
-                            Belum Diproses
+                            <span class="status-badge status-unprocessed">Belum Diproses</span>
                         @endif
                     </td>
                 </tr>
