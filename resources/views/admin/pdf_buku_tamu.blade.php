@@ -22,12 +22,10 @@
             padding-bottom: 20px;
             border-bottom: 2px solid #e2e8f0;
         }
-        .logo-container {
-            margin-bottom: 15px;
-        }
         .logo {
             width: 70px;
             height: auto;
+            margin-bottom: 10px;
         }
         .title {
             font-size: 18px;
@@ -135,13 +133,11 @@
 </head>
 <body>
     <div class="header-section">
-        <div class="logo-container">
-            <img src="{{ public_path('ImageHome/logoptun-removebg-preview.png') }}" alt="Logo PTUN" class="logo">
-        </div>
-        <h1 class="title">Pengadilan Tata Usaha Negara</h1>
+        <img src="{{ public_path('ImageHome/logoptun-removebg-preview.png') }}" alt="Logo PTUN" class="logo">
+        <div class="title">Pengadilan Tata Usaha Negara Bandung</div>
         <div class="subtitle">Buku Tamu Digital</div>
         <div class="period">
-            <i style="margin-right: 5px;">&#128197;</i>
+            <span style="margin-right: 5px;">&#128197;</span>
             Periode: {{ DateTime::createFromFormat('!m', $bulan)->format('F') }} {{ $tahun }}
         </div>
     </div>
