@@ -137,7 +137,6 @@
         <div class="title">Pengadilan Tata Usaha Negara Bandung</div>
         <div class="subtitle">Buku Tamu Digital</div>
         <div class="period">
-            <span style="margin-right: 5px;">&#128197;</span>
             Periode: {{ DateTime::createFromFormat('!m', $bulan)->format('F') }} {{ $tahun }}
         </div>
     </div>
