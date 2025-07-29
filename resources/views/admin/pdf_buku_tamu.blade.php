@@ -53,28 +53,22 @@
         }
         table { 
             width: 100%; 
-            border-collapse: collapse; 
-            margin-top: 20px;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid #ddd;
         }
         th { 
-            background: #2d3748;
-            color: white;
-            font-weight: 600;
-            font-size: 10px;
-            text-transform: uppercase;
+            background-color: #f8f9fa;
+            color: #1a202c;
+            font-weight: bold;
             padding: 12px 8px;
-            text-align: center;
-            letter-spacing: 0.5px;
+            text-align: left;
+            border: 1px solid #ddd;
         }
-        td { 
+        td {
             padding: 10px 8px;
-            border-bottom: 1px solid #e2e8f0;
-            color: #4a5568;
-            font-size: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
         }
         tr:nth-child(even) {
             background: #f8fafc;
@@ -138,10 +132,14 @@
         <div class="logo-container">
             <img src="{{ public_path('ImageHome/logoptun-removebg-preview.png') }}" alt="Logo PTUN" class="logo">
         </div>
-        <h1 class="title">Pengadilan Tata Usaha Negara</h1>
-        <div class="subtitle">Buku Tamu Digital</div>
+        <h1 class="title">Pengadilan Tata Usaha Negara Bandung</h1>
+        <div class="subtitle">
+            Jl.Diponegoro N0.43, Citarum, Kec. Bandung Wetan,<br>
+            Kota Bandung, Jawa Barat 400115<br>
+            Telp: (022) 7213999<br>
+            Email: informasi@ptun-bandung.go.id<br>
+        </div>
         <div class="period">
-            <i style="margin-right: 5px;">&#128197;</i>
             Periode: {{ DateTime::createFromFormat('!m', $bulan)->format('F') }} {{ $tahun }}
         </div>
     </div>
@@ -194,5 +192,7 @@
             @endforeach
         </tbody>
     </table>
+
+    <div style="margin-top: 30px; text-align: right; color: #666; font-size: 10px;">
 </body>
 </html>
