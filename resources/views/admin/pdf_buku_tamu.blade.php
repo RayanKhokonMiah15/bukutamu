@@ -62,17 +62,20 @@
             background: #2d3748;
             color: white;
             font-weight: 600;
-            font-size: 10px;
+            font-size: 11px;
             text-transform: uppercase;
-            padding: 12px 8px;
+            padding: 10px 6px;
             text-align: center;
             letter-spacing: 0.5px;
+            vertical-align: middle;
         }
         td { 
-            padding: 10px 8px;
+            padding: 8px 6px;
             border-bottom: 1px solid #e2e8f0;
             color: #4a5568;
             font-size: 10px;
+            text-align: center;
+            vertical-align: middle;
         }
         tr:nth-child(even) {
             background: #f8fafc;
@@ -157,9 +160,9 @@
         <tbody>
             @foreach($guestsMonth as $i => $guest)
                 <tr>
-                    <td class="text-center">{{ $i + 1 }}</td>
+                    <td>{{ $i + 1 }}</td>
                     <td>{{ $guest->nama }}</td>
-                    <td class="text-center">
+                    <td>
                         @if(isset($guest->foto_base64))
                             <img src="{{ $guest->foto_base64 }}" 
                                  alt="Foto {{ $guest->nama }}" 
@@ -169,12 +172,10 @@
                         @endif
                     </td>
                     <td>{{ $guest->alamat }}</td>
-                    <td class="text-center">{{ $guest->no_telepon ?: '-' }}</td>
+                    <td>{{ $guest->no_telepon ?: '-' }}</td>
                     <td>{{ $guest->keperluan }}</td>
-                    <td class="text-center" style="color: #4a5568;">
-                        {{ $guest->waktu_datang ? Carbon::parse($guest->waktu_datang)->format('d/m/Y') : '-' }}
-                    </td>
-                    <td class="text-center">
+                    <td>{{ $guest->waktu_datang ? Carbon::parse($guest->waktu_datang)->format('d/m/Y') : '-' }}</td>
+                    <td>
                         @if($guest->status === 'accept')
                             <span class="status-badge status-accepted">Diterima</span>
                         @elseif($guest->status === 'pending')

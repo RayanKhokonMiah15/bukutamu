@@ -413,18 +413,37 @@
         }
     });
 
-    // Ambil foto dari video
+    // Ambil foto dari video dan kompres ke JPG, tanpa mengubah resolusi asli
     captureBtn.addEventListener('click', function() {
-        const ctx = canvas.getContext('2d');
-        // Reset transform
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        // Gunakan ukuran asli canvas (sesuai video)
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        const tempCtx = tempCanvas.getContext('2d');
         // Flip horizontal agar tidak mirror
-        ctx.translate(canvas.width, 0);
-        ctx.scale(-1, 1);
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        // Kembalikan transform agar canvas siap untuk pengambilan berikutnya
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        const dataUrl = canvas.toDataURL('image/png');
+        tempCtx.translate(canvas.width, 0);
+        tempCtx.scale(-1, 1);
+        tempCtx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // Kembalikan transform
+        tempCtx.setTransform(1, 0, 0, 1, 0, 0);
+
+        // Kompres ke JPEG kualitas menengah (0.6-0.8)
+        let quality = 0.7;
+        let dataUrl = tempCanvas.toDataURL('image/jpeg', quality);
+
+        // Cek ukuran, jika >150kb turunkan quality, jika <50kb naikkan quality (maks 0.9, min 0.4)
+        function getSizeInKB(base64) {
+            let head = 'data:image/jpeg;base64,';
+            return Math.round((base64.length - head.length) * 3/4 / 1024);
+        }
+        let size = getSizeInKB(dataUrl);
+        while ((size > 150 || size < 50) && (quality > 0.4 && quality < 0.9)) {
+            if (size > 150) quality -= 0.05;
+            else if (size < 50) quality += 0.05;
+            dataUrl = tempCanvas.toDataURL('image/jpeg', quality);
+            size = getSizeInKB(dataUrl);
+        }
+
         photoResult.src = dataUrl;
         photoPreview.classList.remove('d-none');
         fotoWajahHidden.value = dataUrl;
