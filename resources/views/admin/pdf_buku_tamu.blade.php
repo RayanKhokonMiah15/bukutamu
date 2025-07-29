@@ -22,12 +22,10 @@
             padding-bottom: 20px;
             border-bottom: 2px solid #e2e8f0;
         }
-        .logo-container {
-            margin-bottom: 15px;
-        }
         .logo {
             width: 70px;
             height: auto;
+            margin-bottom: 10px;
         }
         .title {
             font-size: 18px;
@@ -58,20 +56,25 @@
             border: 1px solid #ddd;
         }
         th { 
-            background-color: #f8f9fa;
-            color: #1a202c;
+            background-color: #ffffff;
+            color: #2d3748;
             font-weight: bold;
             padding: 12px 8px;
             text-align: left;
             border: 1px solid #ddd;
+            font-size: 11px;
         }
-        td {
-            padding: 10px 8px;
+        td { 
+            padding: 8px 6px;
             border: 1px solid #ddd;
+            color: #4a5568;
+            font-size: 10px;
             text-align: left;
+            vertical-align: middle;
+            background-color: #ffffff;
         }
         tr:nth-child(even) {
-            background: #f8fafc;
+            background: #ffffff;
         }
         tr:last-child td {
             border-bottom: none;
@@ -139,9 +142,6 @@
             Telp: (022) 7213999<br>
             Email: informasi@ptun-bandung.go.id<br>
         </div>
-        <div class="period">
-            Periode: {{ DateTime::createFromFormat('!m', $bulan)->format('F') }} {{ $tahun }}
-        </div>
     </div>
 
     <table>
@@ -160,9 +160,9 @@
         <tbody>
             @foreach($guestsMonth as $i => $guest)
                 <tr>
-                    <td class="text-center">{{ $i + 1 }}</td>
+                    <td>{{ $i + 1 }}</td>
                     <td>{{ $guest->nama }}</td>
-                    <td class="text-center">
+                    <td>
                         @if(isset($guest->foto_base64))
                             <img src="{{ $guest->foto_base64 }}" 
                                  alt="Foto {{ $guest->nama }}" 
@@ -172,12 +172,10 @@
                         @endif
                     </td>
                     <td>{{ $guest->alamat }}</td>
-                    <td class="text-center">{{ $guest->no_telepon ?: '-' }}</td>
+                    <td>{{ $guest->no_telepon ?: '-' }}</td>
                     <td>{{ $guest->keperluan }}</td>
-                    <td class="text-center" style="color: #4a5568;">
-                        {{ $guest->waktu_datang ? Carbon::parse($guest->waktu_datang)->format('d/m/Y') : '-' }}
-                    </td>
-                    <td class="text-center">
+                    <td>{{ $guest->waktu_datang ? Carbon::parse($guest->waktu_datang)->format('d/m/Y') : '-' }}</td>
+                    <td>
                         @if($guest->status === 'accept')
                             <span class="status-badge status-accepted">Diterima</span>
                         @elseif($guest->status === 'pending')

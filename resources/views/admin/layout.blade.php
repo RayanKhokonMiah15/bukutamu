@@ -49,6 +49,13 @@
                                 Statistik Tamu
                             </a>
                         </li>
+                        <li class="nav-item">
+    <a class="nav-link {{ Request::is('admin/tamu-lama') ? 'active' : '' }}" href="{{ route('admin.tamu.lama') }}">
+        <i class="fas fa-history text-secondary"></i>
+        Reset Tamu Lama
+    </a>
+</li>
+
                         <!-- Menu Laporan Harian dan Pengaturan dihapus sesuai permintaan -->
                     </ul>
                 </div>

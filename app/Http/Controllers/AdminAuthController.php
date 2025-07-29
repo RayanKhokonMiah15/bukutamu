@@ -49,4 +49,18 @@ class AdminAuthController extends Controller
         $tamus = BukuTamu::whereNull('status')->latest()->get();
         return view('admin.dashboard', compact('tamus'));
     }
+
+    // ✅ Tampilkan daftar tamu yang lebih dari 1 tahun
+    public function tamuLama()
+    {
+        $tamus = BukuTamu::where('waktu_datang', '<', now()->subYear())->get();
+        return view('admin.tamu_lama', compact('tamus'));
+    }
+
+    // ✅ Hapus semua tamu yang lebih dari 1 tahun
+    public function resetTamuLama()
+    {
+        $count = BukuTamu::where('waktu_datang', '<', now()->subYear())->delete();
+        return redirect()->route('admin.tamu.lama')->with('success', "$count data tamu berhasil dihapus.");
+    }
 }

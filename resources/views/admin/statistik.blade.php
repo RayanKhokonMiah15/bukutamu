@@ -171,12 +171,33 @@
                                                     <img src="{{ asset('storage/' . $guest->foto_wajah) }}" 
                                                          alt="Foto {{ $guest->nama }}" 
                                                          class="img-thumbnail foto-zoom"
-                                                         style="height: 50px; width: 50px; object-fit: cover; cursor: pointer;"
+                                                         style="height: 50px; width: auto; object-fit: cover; cursor: pointer;"
                                                          data-src="{{ asset('storage/' . $guest->foto_wajah) }}">
                                                 @else
                                                     <span class="text-muted">-</span>
                                                 @endif
                                             </td>
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.foto-zoom').forEach(function(img) {
+            img.addEventListener('click', function() {
+                const src = this.getAttribute('data-src');
+                const nama = this.getAttribute('alt').replace(/^Foto /i, '');
+                Swal.fire({
+                    title: nama,
+                    html: `<div style="display:flex;justify-content:center;align-items:center;"><img src='${src}' alt='${nama}' style='max-width:320px;max-height:350px;border-radius:12px;border:4px solid #e2e8f0;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.08);margin-bottom:8px;'></div>`,
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                    background: '#fff',
+                    width: 400,
+                    padding: '1.5em',
+                });
+            });
+        });
+    });
+</script>
+@endpush
                                             <td>{{ $guest->alamat }}</td>
                                             <td>{{ $guest->no_telepon }}</td>
                                             <td>{{ $guest->keperluan }}</td>
